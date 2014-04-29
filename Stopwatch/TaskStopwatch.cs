@@ -18,22 +18,54 @@ namespace TaskStopwatch
         {
             InitializeComponent();
             s = new Stopwatch();
-            timer1.Start();
         }
 
         private void startButton_Click(object sender, EventArgs e)
         {
             s.Start();
+            ticktimer.Start();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            timeLabel.Text = s.Elapsed.Seconds + "";
+            //timeLabel.Text = s.Elapsed.Seconds + "";
         }
 
         private void stopButton_Click(object sender, EventArgs e)
         {
             s.Stop();
+            ticktimer.Stop();
+        }
+
+        private void TaskStopwatch_Load(object sender, EventArgs e)
+        {
+            this.Text = Program.mainForm.treeView1.SelectedNode.Text;
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void ticktimer_Tick(object sender, EventArgs e)
+        {
+            singleSecondsLabel.Text = s.Elapsed.Seconds+"";
+            singleMinutesLabel.Text = s.Elapsed.Minutes + "";
+            singHoursLabel.Text = s.Elapsed.Hours + "";
+
+        }
+
+        private void submitButton_Click(object sender, EventArgs e)
+        {
+            TaskNode node = (TaskNode)(Program.mainForm.treeView1.SelectedNode);
+            node.Elapsed += s.Elapsed;
+
+
+
+
+            Program.mainForm.treeView1.SelectedNode = null;
+            Program.mainForm.treeView1.SelectedNode = node;
+            this.Close();
         }
     }
 }

@@ -15,8 +15,6 @@ namespace TaskStopwatch
         public MainTaskScreen()
         {
             InitializeComponent();
-
-
         }
 
         private void TaskSetup_Load(object sender, EventArgs e)
@@ -27,6 +25,30 @@ namespace TaskStopwatch
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             taskTitleLabel.Text = treeView1.SelectedNode.Text;
+            dataGridView1.Rows.Clear();
+
+            try
+            {
+
+                TaskNode tasknode = ((TaskNode)treeView1.SelectedNode);
+                dataGridView1.Rows.Add(tasknode.Text, tasknode.OriginalEstimated, tasknode.CurrentEstimated, tasknode.Elapsed);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.SlateGray;
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Tomato;
+
+
+                foreach (var node in treeView1.SelectedNode.Nodes)
+                {
+                    TaskNode subtasknode = ((TaskNode)node);
+                    dataGridView1.Rows.Add(subtasknode.Text, subtasknode.OriginalEstimated, subtasknode.CurrentEstimated, subtasknode.Elapsed);
+                }
+
+                e.Node.Expand();
+
+            }
+            catch
+            {
+
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -111,11 +133,11 @@ namespace TaskStopwatch
 
                 XmlTextWriter xr = new XmlTextWriter(filename, System.Text.Encoding.UTF8);
 
-                    XmlWriterSettings settings = new XmlWriterSettings();
-                    settings.Indent = true;
+                XmlWriterSettings settings = new XmlWriterSettings();
+                settings.Indent = true;
 
                 xr.WriteStartDocument();
-                
+
                 //Write our root node
                 xr.WriteStartElement(treeView1.Nodes[0].Text);
 
@@ -130,9 +152,9 @@ namespace TaskStopwatch
                 }
                 //Close the root node
                 xr.WriteEndElement();
-                xr.Close(); 
+                xr.Close();
             }
-            
+
         }
 
         private void saveNode(XmlTextWriter xr, TreeNodeCollection tnc)
@@ -172,6 +194,10 @@ namespace TaskStopwatch
             at.Show();
         }
 
-
+        private void button2_Click(object sender, EventArgs e)
+        {
+            treeView1.Nodes.Clear();
+            dataGridView1.Rows.Clear();
+        }
     }
 }
