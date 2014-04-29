@@ -1,6 +1,6 @@
 ﻿namespace TaskStopwatch
 {
-    partial class Form1
+    partial class TaskStopwatch
     {
         /// <summary>
         /// Required designer variable.
@@ -77,7 +77,7 @@
             // 
             this.timeLabel.AutoSize = true;
             this.timeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeLabel.Location = new System.Drawing.Point(42, 96);
+            this.timeLabel.Location = new System.Drawing.Point(65, 97);
             this.timeLabel.Name = "timeLabel";
             this.timeLabel.Size = new System.Drawing.Size(78, 55);
             this.timeLabel.TabIndex = 4;
@@ -87,7 +87,7 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // Form1
+            // TaskStopwatch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -97,7 +97,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.stopButton);
             this.Controls.Add(this.startButton);
-            this.Name = "Form1";
+            this.Name = "TaskStopwatch";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();

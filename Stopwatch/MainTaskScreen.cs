@@ -10,9 +10,9 @@ using System.Xml;
 
 namespace TaskStopwatch
 {
-    public partial class TaskSetup : Form
+    public partial class MainTaskScreen : Form
     {
-        public TaskSetup()
+        public MainTaskScreen()
         {
             InitializeComponent();
 
@@ -26,7 +26,7 @@ namespace TaskStopwatch
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            taskTitleTextBox.Text = treeView1.SelectedNode.Text;
+            taskTitleLabel.Text = treeView1.SelectedNode.Text;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -162,8 +162,14 @@ namespace TaskStopwatch
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            Form1 stopwatch = new Form1();
+            TaskStopwatch stopwatch = new TaskStopwatch();
             stopwatch.Show();
+        }
+
+        private void addTaskButton_Click(object sender, EventArgs e)
+        {
+            AddTask at = new AddTask();
+            at.Show();
         }
 
 

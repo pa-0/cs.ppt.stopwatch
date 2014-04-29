@@ -7,6 +7,7 @@ namespace TaskStopwatch
 {
     static class Program
     {
+        public static MainTaskScreen mainForm;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -15,7 +16,8 @@ namespace TaskStopwatch
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TaskSetup());
+            mainForm = new MainTaskScreen();
+            Application.Run(mainForm);
         }
     }
 }

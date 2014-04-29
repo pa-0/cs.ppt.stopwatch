@@ -10,11 +10,11 @@ using System.Diagnostics;
 
 namespace TaskStopwatch
 {
-    public partial class Form1 : Form
+    public partial class TaskStopwatch : Form
     {
 
         public Stopwatch s;
-        public Form1()
+        public TaskStopwatch()
         {
             InitializeComponent();
             s = new Stopwatch();
