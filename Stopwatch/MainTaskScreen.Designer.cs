@@ -111,12 +111,12 @@
             // taskTitleLabel
             // 
             this.taskTitleLabel.AutoSize = true;
-            this.taskTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.taskTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.taskTitleLabel.Location = new System.Drawing.Point(13, 131);
             this.taskTitleLabel.Name = "taskTitleLabel";
-            this.taskTitleLabel.Size = new System.Drawing.Size(79, 29);
+            this.taskTitleLabel.Size = new System.Drawing.Size(183, 26);
             this.taskTitleLabel.TabIndex = 20;
-            this.taskTitleLabel.Text = "label2";
+            this.taskTitleLabel.Text = "No Task Selected";
             // 
             // dataGridView1
             // 
