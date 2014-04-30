@@ -24,19 +24,19 @@ namespace TaskStopwatch
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            taskTitleLabel.Text = treeView1.SelectedNode.Text;
+            taskTitleLabel.Text = taskTreeView.SelectedNode.Text;
             dataGridView1.Rows.Clear();
 
             try
             {
 
-                TaskNode tasknode = ((TaskNode)treeView1.SelectedNode);
+                TaskNode tasknode = ((TaskNode)taskTreeView.SelectedNode);
                 dataGridView1.Rows.Add(tasknode.Text, tasknode.OriginalEstimated, tasknode.CurrentEstimated, tasknode.Elapsed);
                 dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.SlateGray;
                 dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Tomato;
 
 
-                foreach (var node in treeView1.SelectedNode.Nodes)
+                foreach (var node in taskTreeView.SelectedNode.Nodes)
                 {
                     TaskNode subtasknode = ((TaskNode)node);
                     dataGridView1.Rows.Add(subtasknode.Text, subtasknode.OriginalEstimated, subtasknode.CurrentEstimated, subtasknode.Elapsed);
@@ -61,24 +61,24 @@ namespace TaskStopwatch
             {
                 try
                 {
-                    //Just a good practice -- change the cursor to a 
-                    //wait cursor while the nodes populate
+                    //change the cursor to a wait cursor while the nodes populate
                     this.Cursor = Cursors.WaitCursor;
-                    //First, we'll load the Xml document
-                    XmlDocument xDoc = new XmlDocument();
-                    xDoc.Load(dlg.FileName);
-                    //Now, clear out the treeview, 
-                    //and add the first (root) node
-                    treeView1.Nodes.Clear();
-                    treeView1.Nodes.Add(new
-                      TreeNode(xDoc.DocumentElement.Name));
-                    TreeNode tNode = new TreeNode();
-                    tNode = (TreeNode)treeView1.Nodes[0];
-                    //We make a call to addTreeNode, 
-                    //where we'll add all of our nodes
-                    addTreeNode(xDoc.DocumentElement, tNode);
+
+                    XmlDocument xmlDocument = new XmlDocument();
+                    xmlDocument.Load(dlg.FileName);
+                    //clear out the treeview and add the first (root) node
+                    taskTreeView.Nodes.Clear();
+                    taskTreeView.Nodes.Add(new TaskNode(               xmlDocument.DocumentElement.Attributes[0].Value + "",
+                                                     TimeSpan.Parse(xmlDocument.DocumentElement.Attributes[1].Value + ""),
+                                                     TimeSpan.Parse(xmlDocument.DocumentElement.Attributes[2].Value + ""),
+                                                     TimeSpan.Parse(xmlDocument.DocumentElement.Attributes[3].Value + "")
+                                                     ));
+                    
+                    //recursively add all descendants
+                    addTaskNode(xmlDocument.DocumentElement, (TaskNode)taskTreeView.Nodes[0]);
+
                     //Expand the treeview to show all nodes
-                    treeView1.ExpandAll();
+                    taskTreeView.ExpandAll();
                 }
                 catch (XmlException xExc)
                 //Exception is thrown is there is an error in the Xml
@@ -97,25 +97,16 @@ namespace TaskStopwatch
         }
 
         //This function is called recursively until all nodes are loaded
-        private void addTreeNode(XmlNode xmlNode, TreeNode treeNode)
+        private void addTaskNode(XmlNode passedXmlNode, TaskNode passedTreeNode)
         {
-            XmlNode xNode;
-            TreeNode tNode;
-            XmlNodeList xNodeList;
-            if (xmlNode.HasChildNodes) //The current node has children
+            int count = 0;
+
+            foreach (XmlNode xmlNode in passedXmlNode.ChildNodes)
             {
-                xNodeList = xmlNode.ChildNodes;
-                for (int x = 0; x <= xNodeList.Count - 1; x++)
-                //Loop through the child nodes
-                {
-                    xNode = xmlNode.ChildNodes[x];
-                    treeNode.Nodes.Add(new TreeNode(xNode.Name));
-                    tNode = treeNode.Nodes[x];
-                    addTreeNode(xNode, tNode);
-                }
+                passedTreeNode.Nodes.Add(new TaskNode(xmlNode.Attributes[0].Value + "", TimeSpan.Parse(xmlNode.Attributes[1].Value + ""), TimeSpan.Parse(xmlNode.Attributes[2].Value + ""), TimeSpan.Parse(xmlNode.Attributes[3].Value + "")));
+                addTaskNode(xmlNode, (TaskNode)passedTreeNode.Nodes[count]);
+                count++;
             }
-            else //No children, so add the outer xml (trimming off whitespace)
-                treeNode.Text = xmlNode.OuterXml.Trim();
         }
 
         private void saveTaskListButton_Click(object sender, EventArgs e)
@@ -128,56 +119,55 @@ namespace TaskStopwatch
 
             if (saveFileDialog1.FileName != "")
             {
-                TreeView tv = treeView1;
                 string filename = saveFileDialog1.FileName;
 
-                XmlTextWriter xr = new XmlTextWriter(filename, System.Text.Encoding.UTF8);
+                XmlTextWriter xmlwriter = new XmlTextWriter(filename, System.Text.Encoding.UTF8);
 
                 XmlWriterSettings settings = new XmlWriterSettings();
                 settings.Indent = true;
 
-                xr.WriteStartDocument();
+                xmlwriter.WriteStartDocument();
 
                 //Write our root node
-                xr.WriteStartElement(treeView1.Nodes[0].Text);
+                TaskNode firstNode = (TaskNode)taskTreeView.Nodes[0];
+                xmlwriter.WriteStartElement("Task");
 
-                //Write current elapsed time for Root Node
-                xr.WriteAttributeString("Estimated Time", "3123131");
-                xr.WriteAttributeString("Elapsed Time", "3123131");
+                //Write attributes for Root Node
+                xmlwriter.WriteAttributeString("Task_Name", firstNode.Text + "");
+                xmlwriter.WriteAttributeString("Original_Estimated_Time", firstNode.OriginalEstimated + "");
+                xmlwriter.WriteAttributeString("Current_Estimated_Time", firstNode.CurrentEstimated + "");
+                xmlwriter.WriteAttributeString("Elapsed_Time", firstNode.Elapsed + "");
 
 
-                foreach (TreeNode node in tv.Nodes)
+                foreach (TreeNode node in taskTreeView.Nodes)
                 {
-                    saveNode(xr, node.Nodes);
+                    saveNode(xmlwriter, node.Nodes);
                 }
+
+
                 //Close the root node
-                xr.WriteEndElement();
-                xr.Close();
+                xmlwriter.WriteEndElement();
+                xmlwriter.Close();
             }
 
         }
 
-        private void saveNode(XmlTextWriter xr, TreeNodeCollection tnc)
+        private void saveNode(XmlTextWriter xmlWriter, TreeNodeCollection tnc)
         {
-            foreach (TreeNode node in tnc)
+            if (tnc.Count > 0)
             {
-                //If we have child nodes, we'll write 
-                //a parent node, then iterrate through
-                //the children
-                if (node.Nodes.Count > 0)
+                foreach (TreeNode treenode in tnc)
                 {
-                    xr.WriteStartElement(node.Text);
+                    TaskNode node = (TaskNode)treenode;
+                    xmlWriter.WriteStartElement("Task");
 
-                    //Write current elapsed time for Root Node
-                    xr.WriteAttributeString("Estimated Time", "3123131");
-                    xr.WriteAttributeString("Elapsed Time", "3123131");
-
-                    saveNode(xr, node.Nodes);
-                    xr.WriteEndElement();
-                }
-                else //No child nodes, so we just write the text
-                {
-                    xr.WriteString(node.Text);
+                    //Write attributes for Node
+                    xmlWriter.WriteAttributeString("Task_Name", node.Text + "");
+                    xmlWriter.WriteAttributeString("Original_Estimated_Time", node.OriginalEstimated + "");
+                    xmlWriter.WriteAttributeString("Current_Estimated_Time", node.CurrentEstimated + "");
+                    xmlWriter.WriteAttributeString("Elapsed_Time", node.Elapsed + "");
+                    saveNode(xmlWriter, node.Nodes);
+                    xmlWriter.WriteEndElement();
                 }
             }
         }
@@ -196,8 +186,16 @@ namespace TaskStopwatch
 
         private void button2_Click(object sender, EventArgs e)
         {
-            treeView1.Nodes.Clear();
+            taskTreeView.Nodes.Clear();
             dataGridView1.Rows.Clear();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (taskTreeView.Nodes.Count != 0)
+            {
+                taskTreeView.SelectedNode.Remove();
+            }
         }
     }
 }

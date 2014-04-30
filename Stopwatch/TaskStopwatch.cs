@@ -39,7 +39,7 @@ namespace TaskStopwatch
 
         private void TaskStopwatch_Load(object sender, EventArgs e)
         {
-            this.Text = Program.mainForm.treeView1.SelectedNode.Text;
+            this.Text = Program.mainForm.taskTreeView.SelectedNode.Text;
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -57,14 +57,11 @@ namespace TaskStopwatch
 
         private void submitButton_Click(object sender, EventArgs e)
         {
-            TaskNode node = (TaskNode)(Program.mainForm.treeView1.SelectedNode);
+            TaskNode node = (TaskNode)(Program.mainForm.taskTreeView.SelectedNode);
             node.Elapsed += s.Elapsed;
 
-
-
-
-            Program.mainForm.treeView1.SelectedNode = null;
-            Program.mainForm.treeView1.SelectedNode = node;
+            Program.mainForm.taskTreeView.SelectedNode = null;
+            Program.mainForm.taskTreeView.SelectedNode = node;
             this.Close();
         }
     }

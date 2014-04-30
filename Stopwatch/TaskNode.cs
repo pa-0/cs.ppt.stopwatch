@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace TaskStopwatch
 {
-    class TaskNode: TreeNode
+    class TaskNode : TreeNode
     {
         //The duration that was originally expected to complete the task
         private TimeSpan originalEstimated;
@@ -33,6 +33,15 @@ namespace TaskStopwatch
 
             //the current estimated time is equal to the original until it is specifically changed.
             currentEstimated = estimatedTime;
+        }
+
+        //constructor that builds from xml saved node
+        public TaskNode(String title, TimeSpan origninalEstimate, TimeSpan currentEstimate, TimeSpan elapsed)
+        {
+            this.Text = title;
+            this.originalEstimated = origninalEstimate;
+            this.currentEstimated = currentEstimate;
+            this.Elapsed = elapsed;
         }
 
         //changes the current estimate

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.taskTreeView = new System.Windows.Forms.TreeView();
             this.openTaskListButton = new System.Windows.Forms.Button();
             this.saveTaskListButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -37,24 +37,25 @@
             this.label1 = new System.Windows.Forms.Label();
             this.taskTitleLabel = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.mainTaskScreenBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.button2 = new System.Windows.Forms.Button();
             this.TaskNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OriginalEstimateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ElapsedColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mainTaskScreenBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainTaskScreenBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // treeView1
+            // taskTreeView
             // 
-            this.treeView1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.treeView1.Location = new System.Drawing.Point(300, 48);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(380, 249);
-            this.treeView1.TabIndex = 14;
-            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            this.taskTreeView.Cursor = System.Windows.Forms.Cursors.Default;
+            this.taskTreeView.Location = new System.Drawing.Point(300, 48);
+            this.taskTreeView.Name = "taskTreeView";
+            this.taskTreeView.Size = new System.Drawing.Size(380, 249);
+            this.taskTreeView.TabIndex = 14;
+            this.taskTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
             // openTaskListButton
             // 
@@ -132,16 +133,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(470, 238);
             this.dataGridView1.TabIndex = 21;
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(300, 15);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(108, 23);
-            this.button2.TabIndex = 22;
-            this.button2.Text = "New Task List";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // TaskNameColumn
             // 
             this.TaskNameColumn.HeaderText = "Task";
@@ -167,11 +158,32 @@
             this.ElapsedColumn.Name = "ElapsedColumn";
             this.ElapsedColumn.ReadOnly = true;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(300, 15);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(108, 23);
+            this.button2.TabIndex = 22;
+            this.button2.Text = "New Task List";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(219, 120);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 66);
+            this.button3.TabIndex = 23;
+            this.button3.Text = "Delete Current Node";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // MainTaskScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 541);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.taskTitleLabel);
@@ -180,7 +192,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.saveTaskListButton);
             this.Controls.Add(this.openTaskListButton);
-            this.Controls.Add(this.treeView1);
+            this.Controls.Add(this.taskTreeView);
             this.Name = "MainTaskScreen";
             this.Text = "TaskSetup";
             this.Load += new System.EventHandler(this.TaskSetup_Load);
@@ -199,7 +211,7 @@
         private System.Windows.Forms.Button addTaskButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label taskTitleLabel;
-        internal System.Windows.Forms.TreeView treeView1;
+        internal System.Windows.Forms.TreeView taskTreeView;
         private System.Windows.Forms.BindingSource mainTaskScreenBindingSource;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridViewTextBoxColumn TaskNameColumn;
@@ -207,5 +219,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn ElapsedColumn;
         internal System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button button3;
     }
 }

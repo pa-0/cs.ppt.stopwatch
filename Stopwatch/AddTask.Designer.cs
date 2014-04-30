@@ -78,6 +78,7 @@
             this.taskTitleTextBox.Name = "taskTitleTextBox";
             this.taskTitleTextBox.Size = new System.Drawing.Size(205, 20);
             this.taskTitleTextBox.TabIndex = 15;
+            this.taskTitleTextBox.Enter += new System.EventHandler(this.taskTitleTextBox_Enter);
             // 
             // label1
             // 

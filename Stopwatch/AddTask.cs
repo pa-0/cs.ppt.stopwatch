@@ -28,15 +28,15 @@ namespace TaskStopwatch
             TimeSpan estimatedTime = new TimeSpan( int.Parse(hoursTextBox.Text), int.Parse(minutesTextBox.Text), 0);
             TaskNode newTask = new TaskNode(taskTitleTextBox.Text, estimatedTime);
 
-            if (Program.mainForm.treeView1.SelectedNode == null)
+            if (Program.mainForm.taskTreeView.SelectedNode == null)
             {
-                Program.mainForm.treeView1.Nodes.Add(newTask);
-                Program.mainForm.treeView1.SelectedNode = newTask;
+                Program.mainForm.taskTreeView.Nodes.Add(newTask);
+                Program.mainForm.taskTreeView.SelectedNode = newTask;
             }
             else
             {
-                Program.mainForm.treeView1.SelectedNode.Nodes.Add(newTask);
-                Program.mainForm.treeView1.SelectedNode = newTask;
+                Program.mainForm.taskTreeView.SelectedNode.Nodes.Add(newTask);
+                Program.mainForm.taskTreeView.SelectedNode = newTask;
             }
 
             this.Close();
@@ -58,6 +58,11 @@ namespace TaskStopwatch
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void taskTitleTextBox_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
