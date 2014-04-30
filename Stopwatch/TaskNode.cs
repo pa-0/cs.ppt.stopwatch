@@ -20,6 +20,7 @@ namespace TaskStopwatch
         public TimeSpan CurrentEstimated
         {
             get { return currentEstimated; }
+            set { this.currentEstimated = value; }
         }
 
         //The amount of time already spent on this task
@@ -48,6 +49,21 @@ namespace TaskStopwatch
         public void changeEstimate(TimeSpan timeChange)
         {
             currentEstimated = currentEstimated + timeChange;
+        }
+
+        public bool isChild 
+        {
+            get
+            {
+                if (this.Nodes.Count == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }  
         }
     }
 }

@@ -55,7 +55,7 @@
             this.taskTreeView.Name = "taskTreeView";
             this.taskTreeView.Size = new System.Drawing.Size(380, 249);
             this.taskTreeView.TabIndex = 14;
-            this.taskTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            this.taskTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.taskTreeView_AfterSelect);
             // 
             // openTaskListButton
             // 
@@ -182,7 +182,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 541);
+            this.ClientSize = new System.Drawing.Size(682, 541);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView1);
@@ -195,7 +195,6 @@
             this.Controls.Add(this.taskTreeView);
             this.Name = "MainTaskScreen";
             this.Text = "TaskSetup";
-            this.Load += new System.EventHandler(this.TaskSetup_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainTaskScreenBindingSource)).EndInit();
             this.ResumeLayout(false);

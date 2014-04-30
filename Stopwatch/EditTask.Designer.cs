@@ -1,6 +1,6 @@
 ﻿namespace TaskStopwatch
 {
-    partial class AddTask
+    partial class EditTask
     {
         /// <summary>
         /// Required designer variable.
@@ -32,10 +32,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.minutesTextBox = new System.Windows.Forms.TextBox();
             this.hoursTextBox = new System.Windows.Forms.TextBox();
-            this.taskTitleTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.changeButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.addbutton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label4
@@ -72,14 +72,6 @@
             this.hoursTextBox.TabIndex = 17;
             this.hoursTextBox.Text = "0";
             // 
-            // taskTitleTextBox
-            // 
-            this.taskTitleTextBox.Location = new System.Drawing.Point(75, 12);
-            this.taskTitleTextBox.Name = "taskTitleTextBox";
-            this.taskTitleTextBox.Size = new System.Drawing.Size(205, 20);
-            this.taskTitleTextBox.TabIndex = 15;
-            this.taskTitleTextBox.Enter += new System.EventHandler(this.taskTitleTextBox_Enter);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -88,6 +80,16 @@
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 14;
             this.label1.Text = "Task Title:";
+            // 
+            // changeButton
+            // 
+            this.changeButton.Location = new System.Drawing.Point(20, 100);
+            this.changeButton.Name = "changeButton";
+            this.changeButton.Size = new System.Drawing.Size(75, 23);
+            this.changeButton.TabIndex = 24;
+            this.changeButton.Text = "Save";
+            this.changeButton.UseVisualStyleBackColor = true;
+            this.changeButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -99,31 +101,30 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // addbutton
+            // label2
             // 
-            this.addbutton.Location = new System.Drawing.Point(20, 100);
-            this.addbutton.Name = "addbutton";
-            this.addbutton.Size = new System.Drawing.Size(75, 23);
-            this.addbutton.TabIndex = 26;
-            this.addbutton.Text = "Add";
-            this.addbutton.UseVisualStyleBackColor = true;
-            this.addbutton.Click += new System.EventHandler(this.addButton_Click);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(97, 15);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 26;
+            this.label2.Text = "label2";
             // 
             // AddTask
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(300, 152);
-            this.Controls.Add(this.addbutton);
+            this.ClientSize = new System.Drawing.Size(233, 152);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.button2);
+            this.Controls.Add(this.changeButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.minutesTextBox);
             this.Controls.Add(this.hoursTextBox);
-            this.Controls.Add(this.taskTitleTextBox);
             this.Controls.Add(this.label1);
             this.Name = "AddTask";
-            this.Text = "AddTask";
+            this.Text = "Edit Task";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,10 +136,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox minutesTextBox;
         private System.Windows.Forms.TextBox hoursTextBox;
-        private System.Windows.Forms.TextBox taskTitleTextBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button changeButton;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button addbutton;
+        private System.Windows.Forms.Label label2;
     }
 }

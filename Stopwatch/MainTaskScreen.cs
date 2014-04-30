@@ -17,12 +17,52 @@ namespace TaskStopwatch
             InitializeComponent();
         }
 
-        private void TaskSetup_Load(object sender, EventArgs e)
+        private void UpdateNode(TaskNode node)
         {
+            if (node.isChild)
+            {
+                return;
+            }
+            else // is parent
+            {
+                TimeSpan cumulativeElapsed = new TimeSpan();
+                TimeSpan cumulativeCurrentEstimated = new TimeSpan();
+                foreach (TaskNode childNode in node.Nodes)
+                {
+                    UpdateNode(childNode);
+                    cumulativeElapsed += childNode.Elapsed;
+                    cumulativeCurrentEstimated += childNode.CurrentEstimated;
+                }
+                node.Elapsed = cumulativeElapsed;
+                node.CurrentEstimated = cumulativeCurrentEstimated;
+            }
+            taskTreeView.Refresh();
+        }
+        public void UpdateNode()
+        {
+            TaskNode node = (TaskNode) taskTreeView.Nodes[0];
 
+            if (node.isChild)
+            {
+                return;
+            }
+            else // is parent
+            {
+                UpdateNode(node);
+                TimeSpan cumulativeElapsed = new TimeSpan();
+                TimeSpan cumulativeCurrentEstimated = new TimeSpan();
+                foreach (TaskNode childNode in node.Nodes)
+                {
+                    cumulativeElapsed += childNode.Elapsed;
+                    cumulativeCurrentEstimated += childNode.CurrentEstimated;
+                }
+                node.Elapsed = cumulativeElapsed;
+                node.CurrentEstimated = cumulativeCurrentEstimated;
+            }
+            taskTreeView.Refresh();
         }
 
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        private void taskTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             taskTitleLabel.Text = taskTreeView.SelectedNode.Text;
             dataGridView1.Rows.Clear();

@@ -62,6 +62,9 @@ namespace TaskStopwatch
 
             Program.mainForm.taskTreeView.SelectedNode = null;
             Program.mainForm.taskTreeView.SelectedNode = node;
+
+            Program.mainForm.UpdateNode();
+
             this.Close();
         }
     }
