@@ -21,16 +21,18 @@ namespace TaskStopwatch
             //Must have integers as input times and task must have a title
             if (!(IsInteger(hoursTextBox.Text) && IsInteger(minutesTextBox.Text)))
             {
-                MessageBox.Show("Please only use integers in the textbox inputs and task must have a title");
+                MessageBox.Show("Please only use integers in the textbox inputs");
                 return;
             }
 
-            var foundNodes =  Program.mainForm.taskTreeView.Nodes.Find(label2.Text, true);
+            TaskNode nodeToBeUpdated = (TaskNode) Program.mainForm.taskTreeView.SelectedNode;
 
-            TaskNode nodeToBeUpdated = (TaskNode)foundNodes[0];
             nodeToBeUpdated.CurrentEstimated = new TimeSpan( int.Parse(hoursTextBox.Text), int.Parse(minutesTextBox.Text), 0);
 
             Program.mainForm.UpdateNode();
+
+            Program.mainForm.taskTreeView.SelectedNode = null;
+            Program.mainForm.taskTreeView.SelectedNode = nodeToBeUpdated;
 
             this.Close();
         }
@@ -56,6 +58,13 @@ namespace TaskStopwatch
         private void taskTitleTextBox_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void EditTask_Load(object sender, EventArgs e)
+        {
+            label2.Text = Program.mainForm.taskTreeView.SelectedNode.Text;
+            hoursTextBox.Text = ((TaskNode)Program.mainForm.taskTreeView.SelectedNode).CurrentEstimated.Hours+"";
+            minutesTextBox.Text = ((TaskNode)Program.mainForm.taskTreeView.SelectedNode).CurrentEstimated.Minutes + "";
         }
     }
 }

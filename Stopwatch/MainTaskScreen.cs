@@ -237,5 +237,11 @@ namespace TaskStopwatch
                 taskTreeView.SelectedNode.Remove();
             }
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            EditTask et = new EditTask();
+            et.Show();
+        }
     }
 }
